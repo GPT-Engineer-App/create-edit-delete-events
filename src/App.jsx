@@ -7,7 +7,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/events" element={<Index />} />
+        <Route exact path="/" element={<Login />} />
       </Routes>
     </Router>
   );
