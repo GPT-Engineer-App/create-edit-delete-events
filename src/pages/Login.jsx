@@ -10,7 +10,6 @@ const Login = () => {
 
   const handleLogin = () => {
     if (username === 'user' && password === 'pass') {
-      localStorage.setItem('isLoggedIn', 'true');
       navigate('/events');
     } else {
       toast({
