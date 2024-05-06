@@ -1,11 +1,19 @@
 import { Container, VStack, Text, Button, Input, useToast, Table, Thead, Tbody, Tr, Th, Td, IconButton } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [events, setEvents] = useState([]);
   const [newEvent, setNewEvent] = useState({ name: "", description: "" });
   const toast = useToast();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem('isLoggedIn')) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const handleInputChange = (e) => {
     setNewEvent({ ...newEvent, [e.target.name]: e.target.value });
@@ -56,6 +64,10 @@ const Index = () => {
         <Input placeholder="Event Name" name="name" value={newEvent.name} onChange={handleInputChange} />
         <Input placeholder="Event Description" name="description" value={newEvent.description} onChange={handleInputChange} />
         <Button colorScheme="blue" onClick={addEvent}>Add Event</Button>
+        <Button colorScheme="red" onClick={() => {
+          localStorage.removeItem('isLoggedIn');
+          navigate('/login');
+        }}>Logout</Button>
         <Table variant="simple">
           <Thead>
             <Tr>
